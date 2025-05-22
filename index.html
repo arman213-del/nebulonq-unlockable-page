@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Secure Document Access</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      padding: 30px;
+      margin: 0;
+    }
+    .container {
+      max-width: 600px;
+      background: #fff;
+      padding: 30px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #d9534f;
+      text-align: center;
+    }
+    p {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    input[type="text"], input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    label {
+      font-weight: bold;
+    }
+    .checkbox-container {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    .checkbox-container input {
+      margin-right: 10px;
+    }
+    .btn {
+      background-color: #007bff;
+      color: #fff;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      display: none;
+    }
+    .btn:disabled {
+      background-color: #ccc;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⚠️ Confidentiality Agreement</h1>
+    <p>
+      By accessing this document, you agree not to <strong>share, distribute, forward, publish, or reproduce</strong> the content in any form. Any violation may result in legal action under applicable international copyright and cyber laws.
+    </p>
+    
+    <form id="accessForm">
+      <label for="wallet">Your Wallet Address:</label>
+      <input type="text" id="wallet" name="wallet" placeholder="0x123...ABC" required>
+
+      <label for="email">Email (optional):</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com">
+
+      <label for="username">Your Name or Username:</label>
+      <input type="text" id="username" name="username" required>
+
+      <div class="checkbox-container">
+        <input type="checkbox" id="agree" required>
+        <label for="agree">I fully understand and agree to the above confidentiality terms.</label>
+      </div>
+
+      <button type="submit" class="btn" id="accessBtn">Access My File</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('accessForm');
+    const accessBtn = document.getElementById('accessBtn');
+    const agreeCheckbox = document.getElementById('agree');
+
+    agreeCheckbox.addEventListener('change', function() {
+      if (this.checked) {
+        accessBtn.style.display = 'block';
+      } else {
+        accessBtn.style.display = 'none';
+      }
+    });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Show confirmation & then redirect to secure file
+      const wallet = document.getElementById('wallet').value;
+      const username = document.getElementById('username').value;
+
+      // Optional: validate wallet (simple check)
+      if (!wallet.startsWith("0x") || wallet.length < 42) {
+        alert("Invalid wallet address.");
+        return;
+      }
+
+      const fileUrl = "https://gateway.pinata.cloud/ipfs/bafybeibo2qt5q2accbmjhh6i4brpo26oh2zy5ibelrqi4hica26il6rxfe"; // Replace with your real file.io or Pinata URL
+
+      alert("Access granted to " + username + ". Please do not share this file.");
+
+      // Redirect to PDF file
+      window.location.href = fileUrl;
+    });
+  </script>
+</body>
+</html>
